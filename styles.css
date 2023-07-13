@@ -27,6 +27,16 @@ footer {
   font-weight: bold;
 }
 
+#weather-description {
+  font-size: 24px;
+}
+
+.main-temperature {
+  padding: 0;
+  margin: 0;
+  font-size: 24px;
+}
+
 .weather-info,
 .main-city {
   font-family: "Inter", sans-serif;
@@ -38,7 +48,7 @@ footer {
 
 .weather-info {
   font-size: smaller;
-  line-height: 1.7;
+  line-height: 2.2;
 }
 
 .main-weather-icon {
