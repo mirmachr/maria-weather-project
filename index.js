@@ -47,6 +47,7 @@ footerDateTime.innerHTML = `${day}, ${month} ${date}, ${year}, ${hours}:${minute
 function showWeather(response) {
   document.querySelector("#main-city").innerHTML = response.data.city;
 
+  let weatherDescription = response.data.condition.description;
   let temperature = response.data.temperature.current;
   let temperatureCelsius = Math.round(response.data.temperature.current);
   let temperatureFahrenheit = Math.round((temperature * 9) / 5 + 32);
@@ -56,6 +57,9 @@ function showWeather(response) {
   let humidity = Math.round(response.data.temperature.humidity);
   let windSpeed = Math.round(response.data.wind.speed);
 
+  document.querySelector(
+    "#weather-description"
+  ).innerHTML = `${weatherDescription}`;
   document.querySelector("#temp-celsius").innerHTML = `${temperatureCelsius}°C`;
   document.querySelector(
     "#temp-fahrenheit"
