@@ -56,6 +56,12 @@ function showWeather(response) {
   let feelsLike = Math.round(response.data.temperature.feels_like);
   let humidity = Math.round(response.data.temperature.humidity);
   let windSpeed = Math.round(response.data.wind.speed);
+  let weatherIcon = document.querySelector("#weather-icon");
+
+  weatherIcon.setAttribute(
+    "src",
+    `http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon}.png`
+  );
 
   document.querySelector(
     "#weather-description"
@@ -105,10 +111,15 @@ function currentLocationWeather(response) {
   let humidity = Math.round(response.data.temperature.humidity);
   let windSpeed = Math.round(response.data.wind.speed);
   let weatherDescription = response.data.condition.description;
+  let weatherIcon = document.querySelector("#weather-icon");
 
   currentCity.innerHTML = response.data.city;
   showCelcius.innerHTML = `${temperatureCelsius}°C`;
   showFahrenheit.innerHTML = `${temperatureFahrenheit}°F`;
+  weatherIcon.setAttribute(
+    "src",
+    `http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon}.png`
+  );
 
   document.querySelector(
     "#weather-description"
