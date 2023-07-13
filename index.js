@@ -62,6 +62,7 @@ function showWeather(response) {
     "src",
     `http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon}.png`
   );
+  weatherIcon.setAttribute("alt", response.data.condition.description);
 
   document.querySelector(
     "#weather-description"
@@ -120,6 +121,7 @@ function currentLocationWeather(response) {
     "src",
     `http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon}.png`
   );
+  weatherIcon.setAttribute("alt", response.data.condition.description);
 
   document.querySelector(
     "#weather-description"
