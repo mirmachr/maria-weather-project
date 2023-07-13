@@ -104,9 +104,15 @@ function currentLocationWeather(response) {
   let feelsLike = Math.round(response.data.temperature.feels_like);
   let humidity = Math.round(response.data.temperature.humidity);
   let windSpeed = Math.round(response.data.wind.speed);
+  let weatherDescription = response.data.condition.description;
+
   currentCity.innerHTML = response.data.city;
   showCelcius.innerHTML = `${temperatureCelsius}°C`;
   showFahrenheit.innerHTML = `${temperatureFahrenheit}°F`;
+
+  document.querySelector(
+    "#weather-description"
+  ).innerHTML = `${weatherDescription}`;
   document.querySelector("#pressure").innerHTML = `${pressure}`;
   document.querySelector("#wind-degree").innerHTML = `${windDegree}°`;
   document.querySelector("#feels-like").innerHTML = `${feelsLike}°C`;
