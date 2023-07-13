@@ -45,33 +45,32 @@ footerDateTime.innerHTML = `${day}, ${month} ${date}, ${year}, ${hours}:${minute
 // Results of city and temperature to be accurate
 
 function showWeather(response) {
-  document.querySelector("#main-city").innerHTML = response.data.name;
+  document.querySelector("#main-city").innerHTML = response.data.city;
 
-  let temperature = response.data.main.temp;
-  let temperatureCelsius = Math.round(response.data.main.temp);
+  let temperature = response.data.temperature.current;
+  let temperatureCelsius = Math.round(response.data.temperature.current);
   let temperatureFahrenheit = Math.round((temperature * 9) / 5 + 32);
-  let highTemperature = Math.round(response.data.main.temp_max);
-  let lowTemperature = Math.round(response.data.main.temp_min);
-  let feelsLike = Math.round(response.data.main.feels_like);
-  let humidity = Math.round(response.data.main.humidity);
+  let pressure = Math.round(response.data.temperature.pressure);
+  let windDegree = Math.round(response.data.wind.degree);
+  let feelsLike = Math.round(response.data.temperature.feels_like);
+  let humidity = Math.round(response.data.temperature.humidity);
   let windSpeed = Math.round(response.data.wind.speed);
 
   document.querySelector("#temp-celsius").innerHTML = `${temperatureCelsius}°C`;
   document.querySelector(
     "#temp-fahrenheit"
   ).innerHTML = `${temperatureFahrenheit}°F`;
-  document.querySelector("#high-temp").innerHTML = `${highTemperature}°C`;
-  document.querySelector("#low-temp").innerHTML = `${lowTemperature}°C`;
+  document.querySelector("#pressure").innerHTML = `${pressure}`;
+  document.querySelector("#wind-degree").innerHTML = `${windDegree}°`;
   document.querySelector("#feels-like").innerHTML = `${feelsLike}°C`;
   document.querySelector("#humidity").innerHTML = `${humidity}%`;
   document.querySelector("#wind-speed").innerHTML = `${windSpeed} km / hour`;
 }
 
 function searchCity(city) {
-  let apiKey = "8402ccd9e55983fce71eeeaa1d2bd1fc";
-  let apiEndpoint = "https://api.openweathermap.org/data/2.5/weather?";
+  let apiKey = "a69o8a56c4a8df604d67aba8tf3dc572";
   let units = "metric";
-  let url = `${apiEndpoint}q=${city}&appid=${apiKey}&units=${units}`;
+  let url = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=${units}`;
 
   axios.get(url).then(showWeather);
 }
