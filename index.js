@@ -43,6 +43,7 @@ let footerDateTime = document.querySelector("#footer-date-time");
 footerDateTime.innerHTML = `${day}, ${month} ${date}, ${year}, ${hours}:${minutes}`;
 
 function displayForecast(response) {
+  console.log(response.data.daily);
   let forecastElement = document.querySelector("#forecast");
 
   let days = ["Thu", "Fri", "Sat", "Sun", "Mon", "Tue"];
@@ -66,6 +67,18 @@ function displayForecast(response) {
 
   forecastHTML = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
+}
+
+function getForecast(coordinates) {
+  console.log(coordinates);
+
+  let apiKey = "a69o8a56c4a8df604d67aba8tf3dc572";
+  let units = "metric";
+  let url = `https://api.shecodes.io/weather/v1/forecast?lat=${coordinates.latitude}&lon=${coordinates.longitude}&key=${apiKey}&units=${units}`;
+
+  console.log(url);
+
+  axios.get(url).then(displayForecast);
 }
 
 // Results of city and temperature to be accurate
@@ -176,5 +189,3 @@ function getCurrentLocation(event) {
 
 let currentLocation = document.querySelector("#current-location");
 currentLocation.addEventListener("click", getCurrentLocation);
-
-displayForecast();
