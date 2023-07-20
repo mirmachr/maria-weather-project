@@ -115,6 +115,8 @@ function showWeather(response) {
   document.querySelector("#feels-like").innerHTML = `${feelsLike}°C`;
   document.querySelector("#humidity").innerHTML = `${humidity}%`;
   document.querySelector("#wind-speed").innerHTML = `${windSpeed} km / hour`;
+
+  getForecast(response.data.coordinates);
 }
 
 function searchCity(city) {
