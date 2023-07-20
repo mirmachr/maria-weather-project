@@ -42,6 +42,32 @@ currentDateTime.innerHTML = `${day}, ${month} ${date}, ${year}, ${hours}:${minut
 let footerDateTime = document.querySelector("#footer-date-time");
 footerDateTime.innerHTML = `${day}, ${month} ${date}, ${year}, ${hours}:${minutes}`;
 
+function displayForecast(response) {
+  let forecastElement = document.querySelector("#forecast");
+
+  let days = ["Thu", "Fri", "Sat", "Sun", "Mon", "Tue"];
+
+  let forecastHTML = `<div class="row">`;
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `
+      <div class="col-2 upcoming-days">
+      <span class="day-name">${day}</span>
+      <br />
+      <img
+      src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/clear-sky-day.png"
+      alt="weather prediction"/>
+      <br />
+      15°C | 59°F
+      </div>
+      `;
+  });
+
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+}
+
 // Results of city and temperature to be accurate
 
 function showWeather(response) {
@@ -150,3 +176,5 @@ function getCurrentLocation(event) {
 
 let currentLocation = document.querySelector("#current-location");
 currentLocation.addEventListener("click", getCurrentLocation);
+
+displayForecast();
