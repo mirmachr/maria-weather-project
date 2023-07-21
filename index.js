@@ -42,39 +42,45 @@ currentDateTime.innerHTML = `${day}, ${month} ${date}, ${year}, ${hours}:${minut
 let footerDateTime = document.querySelector("#footer-date-time");
 footerDateTime.innerHTML = `${day}, ${month} ${date}, ${year}, ${hours}:${minutes}`;
 
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+  return days[day];
+}
+
 function displayForecast(response) {
-  console.log(response.data.daily);
+  let forecast = response.data.daily;
   let forecastElement = document.querySelector("#forecast");
-
-  let days = ["Thu", "Fri", "Sat", "Sun", "Mon", "Tue"];
-
   let forecastHTML = `<div class="row">`;
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 6) {
+      forecastHTML =
+        forecastHTML +
+        `
       <div class="col-2 upcoming-days">
-      <span class="day-name">${day}</span>
+      <span class="day-name">${formatDay(forecastDay.time)}</span>
       <br />
       <img
-      src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/clear-sky-day.png"
+      src="${forecastDay.condition.icon_url}"
       alt="weather prediction"/>
       <br />
-      15°C | 59°F
+      ${Math.round(forecastDay.temperature.day)}°C | ${
+          (Math.round(forecastDay.temperature.day) * 9) / 5 + 32
+        }°F
       </div>
       `;
+    }
   });
-
   forecastHTML = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
 }
 
 function getForecast(coordinates) {
-  console.log(coordinates);
-
   let apiKey = "a69o8a56c4a8df604d67aba8tf3dc572";
   let units = "metric";
-  let url = `https://api.shecodes.io/weather/v1/forecast?lat=${coordinates.latitude}&lon=${coordinates.longitude}&key=${apiKey}&units=${units}`;
+  let url = `https://api.shecodes.io/weather/v1/current?lon=${coordinates.longitude}&lat=${coordinates.latitude}&key=${apiKey}&units=${units}`;
 
   console.log(url);
 
@@ -115,6 +121,8 @@ function showWeather(response) {
   document.querySelector("#feels-like").innerHTML = `${feelsLike}°C`;
   document.querySelector("#humidity").innerHTML = `${humidity}%`;
   document.querySelector("#wind-speed").innerHTML = `${windSpeed} km / hour`;
+
+  console.log(response.data);
 
   getForecast(response.data.coordinates);
 }
