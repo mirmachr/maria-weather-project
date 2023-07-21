@@ -66,9 +66,9 @@ function displayForecast(response) {
       src="${forecastDay.condition.icon_url}"
       alt="weather prediction"/>
       <br />
-      ${Math.round(forecastDay.temperature.day)}°C | ${
-          (Math.round(forecastDay.temperature.day) * 9) / 5 + 32
-        }°F
+      ${Math.round(forecastDay.temperature.day)}°C | ${Math.round(
+          (forecastDay.temperature.day * 9) / 5 + 32
+        )}°F
       </div>
       `;
     }
@@ -79,8 +79,10 @@ function displayForecast(response) {
 
 function getForecast(coordinates) {
   let apiKey = "a69o8a56c4a8df604d67aba8tf3dc572";
+
   let units = "metric";
-  let url = `https://api.shecodes.io/weather/v1/current?lon=${coordinates.longitude}&lat=${coordinates.latitude}&key=${apiKey}&units=${units}`;
+
+  let url = `https://api.shecodes.io/weather/v1/forecast?lon=${coordinates.longitude}&lat=${coordinates.latitude}&key=${apiKey}&units=${units}`;
 
   console.log(url);
 
